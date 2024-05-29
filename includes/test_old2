@@ -1,0 +1,76 @@
+<?php 
+
+function storage_calc_form() {
+    // Get all terms in the 'rooms' taxonomy
+    $terms = get_terms(array(
+        'taxonomy'   => 'room',
+        'hide_empty' => false,
+        'orderby' => 'name',
+        'order' => 'DESC',
+    ));
+    
+    $form_html = '<form id="strg-calc" action="" method="post">';
+
+    foreach ($terms as $term) {
+        // Start section for each room
+        $form_html .= '<input type="checkbox" id="accordion-' . $term->slug . '" class="accordion-toggle">';
+        $form_html .= '<label for="accordion-' . $term->slug . '" class="accordion-label">' . $term->name . '</label>';
+        $form_html .= '<div class="room-section accordion-content" id="room-' . $term->slug . '">';
+        $form_html .= '<div class="stg-calc-fields">';
+
+        // Query items in this room
+        $items = get_posts(array(
+            'post_type' => 'item',
+            'numberposts' => -1,
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'room',
+                    'field' => 'slug',
+                    'terms' => $term->slug,
+                ),
+            ),
+        ));
+
+        foreach ($items as $item) {
+            // Assume 'volume' is a custom field for each item
+            $volume = get_post_meta($item->ID, 'volume', true);
+			//$weight = get_post_meta($item->ID, 'weight', true);
+			$itemId = 'item-' . $item->ID;
+			$title = ucwords(strtolower($item->post_title));
+			$form_html .= '<div class="sc-grid-item">';
+            $form_html .= '<label class="item-label" for="item-' . $item->ID . '">' . $title . '</label>';
+			$form_html .= '<div class="number-input-container">';
+			$form_html .= '<button type="button" onclick="decrementValue(\'' . $itemId . '\')">-</button>';
+            $form_html .= '<input type="number" id="item-' . $item->ID . '" name="items[' . $item->ID . ']" data-volume="' . esc_attr($volume) . '" data-room="' . $term->slug . '" value="0"><br>';
+			$form_html .= '<button type="button" onclick="incrementValue(\'' . $itemId . '\')">+</button>';
+			$form_html .= '</div></div>';
+        }
+
+        $form_html .= '</div></div>'; // Close room section
+        
+    }
+
+    
+    
+	$form_html .= '<div id="summaryList">';
+    $form_html .= '<div id="invTog"><img src="\wp-content\plugins\baltic_storage_calculator\assets\images\van_vol3.png" /><div id="volInv"><span id="vol">0</span> <span>ft&#179;</span></div></div>';
+    $form_html .= '<div id="scrollWrap">';
+    $form_html .= '<table id="summaryTable" style="width: 100%; border-collapse: collapse;"><thead><tr>';
+	$form_html .= '<th style="border: 1px solid black; text-align: left; padding: 8px;">Item</th>';
+	$form_html .= '<th style="border: 1px solid black; text-align: left; padding: 8px;">Quantity</th>';
+	$form_html .= '<th style="border: 1px solid black; text-align: left; padding: 8px;">Total Volume</th>';
+	$form_html .= '</tr></thead><tbody id="itemSummary">';
+	$form_html .= '</tbody><tfoot><tr>';
+	$form_html .= '<td style="border: 1px solid black; text-align: left; padding: 8px; font-weight: bold;" colspan="2">Total Volume</td>';
+	$form_html .= '<td id="totalVolume" class="center-text" style="border: 1px solid black; left; padding: 8px;"></td>';
+	$form_html .= '</tr></tfoot></table>';
+	$form_html .= '<button id="resetButton" type="button">Reset</button>';
+    $form_html .= '<input type="submit" value="Submit">';
+    $form_html .= '<div id="close">Close List (X)</div>';
+	$form_html .= '</div></div>';
+    $form_html .= '</form>';
+    return $form_html;
+}
+
+// Optionally, create a shortcode to place the form in pages or posts
+add_shortcode('storage_calc_form', 'storage_calc_form');

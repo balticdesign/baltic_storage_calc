@@ -1,0 +1,424 @@
+:root {
+    --wp--style--global--content-size: 1400px; /* Your desired width */
+}
+body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+    max-width: 1400px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+#strg-calc .center-text {
+    text-align: center;
+}
+.stg-calc-fields {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Adjust as needed */
+}
+.stg-calc-fields h3 { width:100%; }
+
+#strg-calc .accordion-toggle {
+    display: none; /* Hide the checkbox */
+}
+
+#strg-calc .accordion-label {
+    /* Style for the labels */
+    display: block;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: normal;
+    background-color: #b7d6af;
+    color: #2d661f;
+    padding: 5px;
+    margin-bottom: 5px;
+    position: relative;
+    /* Additional styling as needed */
+}
+#strg-calc .accordion-label.has-items { background-color: #2d661f; color: #fff;}
+
+#strg-calc .accordion-label::before {
+    content: '+'; /* Default content is '+' */
+    /* Add styling for the icon here (size, margins, etc.) */
+    position: absolute;
+    font-size: 25px;
+    right: 5px;
+    top: 6px;
+}
+
+.accordion-toggle:checked + .accordion-label::before {
+    content: '-'; /* Change content to '-' when the accordion is open */
+}
+
+.accordion-content {
+    /* Hide content by default */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    /* Additional styling as needed */
+}
+
+.accordion-toggle:checked + .accordion-label + .accordion-content {
+    max-height: 1000px; /* Adjust as needed for the content size */
+    /* It's a good practice to set a max-height larger than the content's actual height */
+}
+
+.sc-grid-item {
+    flex: 0 0 20%; /* Adjust width for margins/padding */
+    margin-bottom: 20px; /* Space between rows */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#strg-calc .sc-grid-item label {font-weight: normal; }
+#strg-calc .sc-grid-item label, #strg-calc .sc-grid-item input[type="number"] {
+    display: block;
+    margin-bottom: 0px; /* Adds some space below each element */
+}
+
+#strg-calc .sc-grid-item input[type="number"] { width: 60px; /* Adjust as needed */
+    text-align: center; height: 44px; height: 52px;
+    border: 1px solid #ccc;
+}
+
+#strg-calc input[type='number']::-webkit-inner-spin-button,
+#strg-calc input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* Removes default arrows */
+    margin: 0;
+}
+
+div#invTog {
+    position: absolute;
+    display: block;
+    cursor: pointer;
+    top:170px;
+    width: 100px;
+    left: -120px;
+    background: #ffffff;
+    color: #2d661f;
+    padding: 5px 10px;
+    text-align: center;
+    border-radius: 6px 0px 0px 6px;
+    border-top: 1px solid #b7d6af;
+    border-bottom: 1px solid #b7d6af;
+    border-left: 1px solid #b7d6af;
+}
+
+#volInv { width:100%; text-align: center; font-weight: 800; }
+
+#close { 
+    padding: 5px;
+    text-align: center;
+    margin: 10px 0px;
+    display: block;
+    border: 1px solid #ccc; clear:both;  }
+
+#summaryList {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: -450px; /* Initially positioned off-screen */
+    width: 90%; /* Relative width */
+    max-width: 450px;
+    height: 100%;
+    background: white;
+    
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: right 0.3s ease; /* Smooth transition for sliding effect */
+}
+
+#scrollWrap { overflow-y: auto; width: 100%;  height: calc(100% - 60px); /* Adjust 60px based on the height of non-scrollable elements */
+    padding: 10px 0px 40px; /* Increase bottom padding */ }
+.admin-bar #scrollWrap { padding: 30px 0px 40px; }
+
+#itemSummary tr:nth-child(odd) {
+    background-color: #b7d6af; /* Adjust the color as needed */
+}
+
+#itemSummary td {
+    border: 1px solid #747474;
+    padding: 5px;
+}
+
+button#resetButton, #summaryList input[type="submit"] {
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 10px 10px 0px;
+    border-radius: 6px;
+    background-color: #91d742;
+    color:#1b3d13;
+    font-size: 20px;
+}
+#summaryList input[type="submit"] { background-color:#2d661f; color: #fff; float: right;}
+
+#strg-calc .number-input-container {
+    display: flex;
+    align-items: center;
+}
+
+#strg-calc .number-input-container button {
+    width: 50px; /* Adjust as needed */
+    height: 50px; /* Adjust as needed */
+    font-size: 26px; /* Adjust as needed */
+    border: 1px solid #ccc;
+    padding:0px;
+    margin:0px;
+    border-radius: 6px;
+    background-color:#b7d6af;
+    color:#1b3d13;
+    cursor: pointer;
+}
+#strg-calc .optional-rooms {
+   
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: #b7d6af;
+    color: #2d661f;
+}
+#strg-calc .optional-rooms label { display:inline; font-weight: normal; }
+#strg-calc .optional-room {
+    display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 800px) {
+    .sc-grid-item {
+        flex: 0 0 50%; /* Adjust for smaller screens */
+        display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+    .number-input-container button { width: 10vw;
+        height: 7vh;
+        font-size: 6vw;
+    }
+    .sc-grid-item label, .sc-grid-item input[type="number"] {
+        display: block;
+        margin-bottom: 0px;
+        font-size: 4.2vw;
+        text-align: center;
+        min-height: 54px;
+    }
+    .sc-grid-item label {display:flex; align-items: center;}
+        .sc-grid-item input[type="number"] {
+            width: 16vw;
+            text-align: center;
+            height: 5vh;
+        }
+}
+
+@media (max-width: 400px) {
+
+
+}
+
+:root {
+    --wp--style--global--content-size: 1400px; /* Your desired width */
+}
+body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+    max-width: 1400px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+.gform_wrapper .center-text {
+    text-align: center;
+}
+.stg-calc-fields {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Adjust as needed */
+}
+.stg-calc-fields h3 { width:100%; }
+
+.gform_wrapper .accordion-toggle {
+    display: none; /* Hide the checkbox */
+}
+
+.gform_wrapper .accordion-label {
+    /* Style for the labels */
+    display: block;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: normal;
+    background-color: #b7d6af;
+    color: #2d661f;
+    padding: 5px;
+    margin-bottom: 5px;
+    position: relative;
+    /* Additional styling as needed */
+}
+.gform_wrapper .accordion-label.has-items { background-color: #2d661f; color: #fff;}
+
+.gform_wrapper .accordion-label::before {
+    content: '+'; /* Default content is '+' */
+    /* Add styling for the icon here (size, margins, etc.) */
+    position: absolute;
+    font-size: 25px;
+    right: 5px;
+    top: 6px;
+}
+
+.accordion-toggle:checked + .accordion-label::before {
+    content: '-'; /* Change content to '-' when the accordion is open */
+}
+
+.accordion-content {
+    /* Hide content by default */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    /* Additional styling as needed */
+}
+
+.accordion-toggle:checked + .accordion-label + .accordion-content {
+    max-height: 1000px; /* Adjust as needed for the content size */
+    /* It's a good practice to set a max-height larger than the content's actual height */
+}
+
+.sc-grid-item {
+    flex: 0 0 20%; /* Adjust width for margins/padding */
+    margin-bottom: 20px; /* Space between rows */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.gform_wrapper .sc-grid-item label {font-weight: normal; }
+.gform_wrapper .sc-grid-item label, #strg-calc .sc-grid-item input[type="number"] {
+    display: block;
+    margin-bottom: 0px; /* Adds some space below each element */
+}
+
+.gform_wrapper .sc-grid-item input[type="number"] { width: 60px; /* Adjust as needed */
+    text-align: center; height: 44px; height: 52px;
+    border: 1px solid #ccc;
+    margin-bottom: 0px;
+}
+
+.gform_wrapper input[type='number']::-webkit-inner-spin-button,
+.gform_wrapper input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* Removes default arrows */
+    margin: 0;
+}
+
+div#invTog {
+    position: absolute;
+    display: block;
+    cursor: pointer;
+    top:170px;
+    width: 100px;
+    left: -99px;
+    background: #ffffff;
+    color: #2d661f;
+    padding: 5px 10px;
+    text-align: center;
+    border-radius: 6px 0px 0px 6px;
+    border-top: 1px solid #b7d6af;
+    border-bottom: 1px solid #b7d6af;
+    border-left: 1px solid #b7d6af;
+}
+
+#volInv { width:100%; text-align: center; font-weight: 800; }
+
+#close { 
+    padding: 5px;
+    text-align: center;
+    margin: 10px 0px;
+    display: block;
+    border: 1px solid #ccc; clear:both;  }
+
+#summaryList {
+    position: fixed;
+    z-index: 5000;
+    top: 0;
+    right: -450px; /* Initially positioned off-screen */
+    width: 90%; /* Relative width */
+    max-width: 450px;
+    height: 100%;
+    background: white;
+    
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: right 0.3s ease; /* Smooth transition for sliding effect */
+}
+
+#scrollWrap { overflow-y: auto; width: 100%;  height: calc(100% - 60px); /* Adjust 60px based on the height of non-scrollable elements */
+    padding: 10px 0px 40px; /* Increase bottom padding */ }
+.admin-bar #scrollWrap { padding: 30px 0px 40px; }
+
+#itemSummary tr:nth-child(odd) {
+    background-color: #b7d6af; /* Adjust the color as needed */
+}
+
+#itemSummary td {
+    border: 1px solid #747474;
+    padding: 5px;
+}
+
+button#resetButton, #summaryList input[type="submit"] {
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 10px 10px 0px;
+    border-radius: 6px;
+    background-color: #91d742;
+    color:#1b3d13;
+    font-size: 20px;
+}
+#summaryList input[type="submit"] { background-color:#2d661f; color: #fff; float: right;}
+
+.gform_wrapper .number-input-container {
+    display: flex;
+    align-items: center;
+}
+
+.gform_wrapper .number-input-container button {
+    width: 50px; /* Adjust as needed */
+    height: 50px; /* Adjust as needed */
+    font-size: 26px; /* Adjust as needed */
+    border: 1px solid #ccc;
+    padding:0px;
+    margin:0px;
+    border-radius: 6px;
+    background-color:#b7d6af;
+    color:#1b3d13;
+    cursor: pointer;
+}
+.gform_wrapper .optional-rooms {
+   
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: #b7d6af;
+    color: #2d661f;
+}
+.gform_wrapper .optional-rooms label { display:inline; font-weight: normal; }
+.gform_wrapper .optional-room {
+    display: none;
+}
+.gform_wrapper .gform_footer input[type=submit] { float: right !important; }
+
+/* Responsive adjustments */
+@media (max-width: 800px) {
+    .sc-grid-item {
+        flex: 0 0 50%; /* Adjust for smaller screens */
+        display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+    .number-input-container button { width: 10vw;
+        height: 7vh;
+        font-size: 6vw;
+    }
+    .sc-grid-item label, .sc-grid-item input[type="number"] {
+        display: block;
+        margin-bottom: 0px;
+        font-size: 4.2vw;
+        text-align: center;
+        min-height: 54px;
+    }
+    .sc-grid-item label {display:flex; align-items: center;}
+        .sc-grid-item input[type="number"] {
+            width: 16vw;
+            text-align: center;
+            height: 5vh;
+        }
+}
